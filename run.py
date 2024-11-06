@@ -97,6 +97,7 @@ class Interview:
             mission=mission,
             requirements=requirements,
             value=value,
+            job=job_description,
         )
 
         self.interviewer.set_preset(self.preset)
@@ -131,6 +132,7 @@ class Interview:
         return self.interviewer.history
 
     def close(self):
+        self.interviewer.history[1:] = []
         self.interviewer.audio_processor.close()
         self.interviewer.set_preset(self.preset)
 
