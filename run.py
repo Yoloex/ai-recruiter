@@ -1,4 +1,5 @@
 import json
+import time
 import gradio as gr
 from interviewer.interviewer import Interviewer
 from interviewer.preprocessor import extract_requirement
@@ -33,16 +34,19 @@ class Interview:
                         company = gr.Textbox(
                             data["Company"],
                             placeholder="Enter the company's name",
+                            label="Company",
                         )
                         position = gr.Textbox(
                             data["Job Title"],
                             placeholder="Enter the job title",
+                            label="Job Title",
                             max_length=100,
                         )
                     with gr.Row():
                         jd = gr.TextArea(
                             job,
                             placeholder="Enter the job description",
+                            label="Job Description",
                             lines=5,
                             max_lines=5,
                         )
@@ -50,12 +54,14 @@ class Interview:
                     mission = gr.TextArea(
                         data["Mission"],
                         placeholder="Enter the company's mission",
+                        label="Company's Mission",
                         lines=3,
                         max_lines=3,
                     )
                     value = gr.TextArea(
                         data["Core Values"],
                         placeholder="Enter the company's value",
+                        label="Company' Core Values",
                         lines=3,
                         max_lines=3,
                     )
@@ -81,7 +87,8 @@ class Interview:
         return demo
 
     def preprocess(self, company, position, mission, value, job_description):
-        gr.Info("Extracting requirements ...", duration=5)
+        gr.Info("Extracting requirements ...", duration=6)
+
         requirements = extract_requirement(job_description)
 
         self.preset = PRESETS.format(
@@ -99,8 +106,11 @@ class Interview:
 
         while not self.done:
             gr.Info("Your turn. Say please", duration=2)
+            time.sleep(1)
+
             user_speech = self.interviewer.stt()
-            gr.Info("Your speech is accepted", duration=2)
+            gr.Info("Your speech is accepted. Responding ...")
+
             if user_speech.strip(
                 " "
             ).lower() == "i am done." or self.interviewer.is_done(user_speech):
