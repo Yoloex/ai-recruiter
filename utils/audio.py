@@ -2,7 +2,6 @@ import io
 import pydub
 import pyaudio
 import webrtcvad
-import numpy as np
 
 
 class AudioProcessor:
