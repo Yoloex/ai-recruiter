@@ -1,7 +1,6 @@
 import os
 import io
 import pyaudio
-import numpy as np
 from openai import OpenAI
 from dotenv import load_dotenv
 from utils.audio import AudioProcessor
