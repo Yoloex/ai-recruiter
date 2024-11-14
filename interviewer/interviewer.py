@@ -112,7 +112,3 @@ class Interviewer:
         )
 
         return response.choices[0].message.content.lower() == "yes"
-
-    def is_silence(self, buffer):
-        buffer_data = np.frombuffer(buffer, dtype=np.int16)
-        return abs(np.mean(buffer_data)) < self.silence_threshold
